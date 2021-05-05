@@ -1,0 +1,9 @@
+{% if all_ninjas_list %}
+    <ul>
+    {% for ninja in all_ninjas_list %}
+        <li>{{ ninja.name }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No ninjas in database.</p>
+{% endif %}
