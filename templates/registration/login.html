@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="jumbotron ">
+                {% if user.is_authenticated %}
+                    <p class="lead text-center">Ya esta autenicado.</p>
+                {% else %}
+                <form method="POST"  class="form-group">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="text-right">
+                        <button class="btn btn-primary" type="submit">Log In</button>
+                    </div>
+                </form>
+                {% endif%}
+            </div>
+        </div>
+    </div>
+      
+<script>
+    document.getElementById("id_username").className ="form-control";
+    document.getElementById("id_password").className ="form-control";
+
+</script>
+{% endblock %}

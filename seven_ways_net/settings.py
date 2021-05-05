@@ -57,7 +57,7 @@ ROOT_URLCONF = 'seven_ways_net.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ BASE_DIR / 'templates' ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,3 +121,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# para tener archivos estaticos para cualquier app
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+# Redireccion despues de logueo a la pagina principal 
+LOGIN_REDIRECT_URL = '/'
+# Redireccion despues de deslogueo a la pagina de logueo
+LOGOUT_REDIRECT_URL = '/auth/login'
