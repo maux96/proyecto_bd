@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ninjas.apps.NinjasConfig',
     'skills.apps.SkillsConfig',
+    'invocations.apps.InvocationsConfig',
 ]
 
 MIDDLEWARE = [

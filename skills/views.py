@@ -3,7 +3,7 @@ from django.views import generic
 from .models import Skill
 
 # Create your views here.
-class ShowAllSkills(generic.ListView):
+class ShowAllSkillsView(generic.ListView):
     template_name = 'skills/show_all_skills.html'
     context_object_name = 'all_skills_list'
 

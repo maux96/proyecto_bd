@@ -1,0 +1,9 @@
+{% if all_invocations_list %}
+    <ul>
+    {% for invocation in all_invocations_list %}
+        <li>{{ invocation.name }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No invocations in database.</p>
+{% endif %}

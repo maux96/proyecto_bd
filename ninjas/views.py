@@ -3,7 +3,7 @@ from django.views import generic
 from .models import Ninja
 
 # Create your views here.
-class ShowAllNinjas(generic.ListView):
+class ShowAllNinjasView(generic.ListView):
     template_name = 'ninjas/show_all_ninjas.html'
     context_object_name = 'all_ninjas_list'
 
@@ -11,7 +11,7 @@ class ShowAllNinjas(generic.ListView):
         return Ninja.objects.all()
 
 
-class ShowNinjaSkills(generic.ListView):
+class ShowNinjaSkillsView(generic.ListView):
     template_name = 'ninjas/show_ninja_skills.html'
     context_object_name = 'all_ninja_skills_list'
 
