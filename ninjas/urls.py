@@ -6,4 +6,5 @@ app_name = "ninja"
 urlpatterns = [
     path('allNinjas/', views.ShowAllNinjasView.as_view(), name='show_all_ninjas'),
     path('ninjaSkills/<int:pk>', views.ShowNinjaSkillsView.as_view(), name='show_ninja_skills'),
+    path('ninjaInvocations/<int:pk>', views.ShowNinjaInvocationsView.as_view(), name='show_ninja_invocations'),
 ]

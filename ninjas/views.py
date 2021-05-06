@@ -18,3 +18,11 @@ class ShowNinjaSkillsView(generic.ListView):
     def get_queryset(self):
         ninja = get_object_or_404(Ninja, pk=self.kwargs['pk'])
         return ninja.skills.all()
+
+class ShowNinjaInvocationsView(generic.ListView):
+    template_name = 'ninjas/show_ninja_invocations.html'
+    context_object_name = 'all_ninja_invocations_list'
+
+    def get_queryset(self):
+        ninja = get_object_or_404(Ninja, pk=self.kwargs['pk'])
+        return ninja.invocations.all()
