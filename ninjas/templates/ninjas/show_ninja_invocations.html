@@ -1,0 +1,9 @@
+{% if all_ninja_invocations_list %}
+    <ul>
+    {% for invocation in all_ninja_invocations_list %}
+        <li>{{ invocation.name }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>This ninja has no invocations in the database.</p>
+{% endif %}
