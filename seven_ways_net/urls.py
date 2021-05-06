@@ -16,7 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from . import views
+
 urlpatterns = [
+    path('',views.index,name="index"),                  #home page
+    path('auth/',include('django.contrib.auth.urls')),  #authentication
     path('ninjas/', include('ninjas.urls')),
     path('skills/', include('skills.urls')),
     path('invocations/', include('invocations.urls')),
