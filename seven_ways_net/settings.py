@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'ninjas.apps.NinjasConfig',
     'skills.apps.SkillsConfig',
     'invocations.apps.InvocationsConfig',
+    'missions.apps.MissionsConfig',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,9 @@
+{% if all_clients_list %}
+    <ul>
+    {% for client in all_clients_list %}
+        <li>{{ client.name }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No clients in database.</p>
+{% endif %}
