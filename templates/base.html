@@ -22,11 +22,11 @@
                 <div class="col-md-7"></div>
                 <div class="col-md-4">
                     <a class="btn btn-outline-primary" href="{% url 'index' %}">Home</a>
-                    <a class="btn btn-outline-primary" href="{% url 'ninja:show_all_ninjas' %}">Ninjas</a>
+                    <a class="btn btn-outline-primary" href="{% url 'ninjas:show_all_ninjas' %}">Ninjas</a>
                     <a class="btn btn-outline-primary" href="#implementar_la_list_view_de_misiones">Misiones</a>
                     {% if user.is_authenticated %}
                         {% if user.ninja %} <!-- ver como hacer esto sin los if -->
-                            <a class="btn btn-outline-primary" href="#implementar_el_perfil_del_ninja">{{user.ninja.name}}</a>
+                            <a class="btn btn-outline-primary" href="{% url 'ninjas:profile' user.ninja.pk %}">{{user.ninja.name}}</a>
                         {% elif user.client%}
                             <a class="btn btn-outline-primary" href="#implementar_el_perfil_del_cliente">{{user.client.name}}</a>
                         {% else %}  

@@ -1,0 +1,9 @@
+{% if all_missions_list %}
+    <ul>
+    {% for mission in all_missions_list %}
+        <li>{{ mission.name }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No missions in database.</p>
+{% endif %}

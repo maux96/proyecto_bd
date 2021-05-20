@@ -1,0 +1,5 @@
+{% if team.in_mission %}
+    <p>The team {{ team.name }} is doing the mission {{ mission_in_progress }}</p>
+{% else %}
+    <p>The team {{ team.name }} does not have mission assigned in this moment</p>
+{% endif %}

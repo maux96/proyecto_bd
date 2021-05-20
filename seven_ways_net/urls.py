@@ -24,5 +24,6 @@ urlpatterns = [
     path('ninjas/', include('ninjas.urls')),
     path('skills/', include('skills.urls')),
     path('invocations/', include('invocations.urls')),
+    path('missions/', include('missions.urls')),
     path('admin/', admin.site.urls),
 ]
