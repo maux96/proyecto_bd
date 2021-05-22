@@ -9,5 +9,102 @@
 {% endblock %}
     
 {% block content %} 
-    
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8">
+    <ul>
+        {% for e in errors %}
+            <li> {{ e}} </li>
+        {% endfor %}
+    </ul>
+    <form action="{% url 'endRegister' %}" method="POST">
+        {% csrf_token %}
+
+        <div class="row">
+
+            <label for="username" >Username:</label>
+            <input class="form-control" type="text" name="username" placeholder="Username" required>
+
+            <label for="password" >Password:</label>
+            <input class="form-control" type="password" name="password" placeholder="Password" required>
+        </div>
+        
+        <div class="space20"></div>
+        <hr>
+        <div class="myflex">
+            <div>
+                <label  >Ninja</label>
+                <input type="radio" class="form-control" name="userType" value="ninja" onchange="swap('ninja')"  required>
+            </div>
+            <div>
+                <label >Client</label>
+                <input type="radio" class="form-control" name="userType" value="client" onchange="swap('client')"  required>
+            </div>
+        </div>
+        <hr>
+        <div class="space20"></div>
+
+
+        <div class="row">
+            <label for="name" >Name:</label>
+            <input class="form-control" type="text" name="name" placeholder="Name">
+        </div>
+
+        <div id="registertype" > 
+            <div id="ninjar" hidden="true">
+                <div class="row">
+                    
+                    <label for="clan" >Clan:</label>
+                    <input class="form-control" type="text" name="clan" placeholder="Clan">
+                
+                    <label for="birthdate" >Birth Date:</label>
+                    <input  class="form-control" type="date" name="birthdate" placeholder="BirthDate">
+                    
+                    <label for="gender" >Gender:</label>
+                    <input list="gender" class="form-control" type="text" name="gender" placeholder="Gender" >
+                    <datalist id="gender">
+                        <option value="M"></option>
+                        <option value="F"></option>
+                        <option value="Other"></option>
+                    </datalist>
+                    
+                </div>
+            </div>
+
+            <div id="clientr" hidden="true">
+                <div class="row">
+                    <label for="country" >Country:</label>
+                    <input class="form-control" type="text" name="country" placeholder="Country">
+                </div>
+            </div>
+        </div>
+
+            
+        <div class="space20"></div>
+        <div class="row">
+            <div class="col-md-10"></div>
+            <div class="col-md-2" >
+                <input class="btn btn-primary" type="submit" on value="Create User" >
+            </div>
+        <div>
+
+    </form>
+</div>
+</div>
+
+<script>
+    function swap(str)
+    {
+        if(str == 'client')
+        {
+            document.getElementById("ninjar").hidden=true
+            document.getElementById("clientr").hidden=false
+        }else{
+            document.getElementById("clientr").hidden=true
+            document.getElementById("ninjar").hidden=false
+        }
+    }
+</script>
+
 {% endblock %}
+

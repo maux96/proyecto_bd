@@ -3,6 +3,16 @@
 {
     height: 100px;
 }
+.space20
+{
+    height: 20px;
+}
+
+.myflex
+{
+    display: flex;
+    justify-content: space-evenly;
+}
 
 .fixedclass
 {

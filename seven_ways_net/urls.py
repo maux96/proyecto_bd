@@ -21,7 +21,10 @@ from . import views
 urlpatterns = [
     path('',views.index,name="index"),                  #home page
     path('auth/',include('django.contrib.auth.urls')),  #authentication
+    
     path('register/',views.register,name="register"),
+    path('endRegister/',views.endRegister, name="endRegister"),
+    
     path('ninjas/', include('ninjas.urls')),
     path('skills/', include('skills.urls')),
     path('invocations/', include('invocations.urls')),

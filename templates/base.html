@@ -28,9 +28,9 @@
                         <a class="btn btn-outline-primary" href="{% url 'missions:show_all_clients' %}">Clients</a> | 
                         {% if user.is_authenticated %}
                             {% if user.ninja %} <!-- ver como hacer esto sin los if -->
-                                <a class="btn btn-outline-primary" href="{% url 'ninjas:profile' user.ninja.pk %}">{{user.ninja.name}}</a>
+                                <a class="btn btn-outline-primary" href="{% url 'ninjas:profile' user.ninja.pk %}">{{user.username}}</a>
                             {% elif user.client%}
-                                <a class="btn btn-outline-primary" href="{% url 'missions:profile' user.client.pk %}">{{user.client.name}}</a>
+                                <a class="btn btn-outline-primary" href="{% url 'missions:profile' user.client.pk %}">{{user.username}}</a>
                             {% else %}  
                             <a class="btn btn-outline-primary" href="/admin/">{{user.username}}</a>
                             {% endif %}
