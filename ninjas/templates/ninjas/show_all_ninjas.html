@@ -9,7 +9,7 @@
         <h1 class="display-4"> Ninjas! </h1>
         <hr>
     </div>
-    <p class="lead"> Todos los ninjas</p>
+    <p class="lead"> All the ninjas.</p>
 {% endblock %}
 
 
@@ -23,7 +23,7 @@
         {% for ninja in all_ninjas_list %}
             <tr>
                 <td> {{ninja.id}}</td> 
-                <td><a href="#ir_al_perfil_del_ninja"> {{ninja.name}}</a></td> <!-- Aqui deberia haber un link a el perfil de el ninja... -->
+                <td><a href="{% url 'ninjas:profile' ninja.pk %}"> {{ninja.name}}</a></td> <!-- Aqui deberia haber un link a el perfil de el ninja... -->
                 <td>{{ninja.ninja_class}} </td> <!-- Aqui deberia ir la clase asociada al ninja... -->
             </tr>
         {% endfor %}

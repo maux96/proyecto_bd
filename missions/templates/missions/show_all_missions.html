@@ -1,9 +1,30 @@
-{% if all_missions_list %}
-    <ul>
-    {% for mission in all_missions_list %}
-        <li>{{ mission.name }}</li>
-    {% endfor %}
-    </ul>
-{% else %}
+{% extends 'base.html'%}
+
+{% block title%} Missions {% endblock%}
+
+{% block header%} 
+    <h1 class="display-4">Missions!</h1>
+    <hr>
+    <p class="lead">All the missions.</p>
+{% endblock%}
+
+{% block content %}
+  
+    {% if all_missions_list %}
+        <table class="table">
+            <tr class="bg-secondary text-light ">
+                <th>Rango</th><th>Nombre</th><th>Cliente</th><th>Pais</th>
+            </tr>
+            {% for mission in all_missions_list %}
+                <tr>
+                    <td> {{mission.rank}}</td> 
+                    <td><a href="{% url 'missions:mission_details' mission.pk%}"> {{mission.name}}</a></td>
+                    <td>{{mission.client.name}}  </td>  
+                    <td>{{mission.client.country}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
     <p>No missions in database.</p>
-{% endif %}
+    {% endif %}
+{% endblock %}

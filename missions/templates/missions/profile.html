@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %} {{client.name}} {% endblock %}
+
+{% block header %}
+<div class="page-header">
+    <h1 class="display-5">{{client.name}} </h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row" >
+    <div class="col-md-6">
+       
+        <h3>Descripcion: </h3>
+        <p class="text-justify">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus, eveniet numquam ad porro eaque quaerat, natus ullam cupiditate ipsa corrupti, quasi mollitia eius excepturi repellat saepe commodi animi voluptas exercitationem.</p>
+        
+       
+    </div>
+    <div class="col-md-6">
+        <h3>Resumen</h3>
+        <table class="table">
+            <tr>
+                <td>User: </td> <td>{{ client.user }}</td>
+            </tr>
+            <tr>
+                <td> Country: </td> <td>{{client.country}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+    
+    <div class="row jumbotron">
+        <div class="col-md-12">
+            
+            {% if client.missions %}
+            <h4>Missions:</h4>
+            <table class="table">
+                <tr>
+                    <th>Id</th> <th>Mision</th> <th>Mission Results</th>
+                </tr>
+                {% for m in client.missions %}
+                    <tr>
+                        <td>{{m.pk}}</td> <td> <a href="{% url 'missions:mission_details' m.pk %}"> {{m.name}}</a> </td>
+                        <td>
+                            {% if m.missionResults %}
+                                {{m.missionResults.result}}
+                            {% else %} 
+                                No results.
+                            {% endif %}
+                        </td>
+                    </tr>    
+                {% endfor %}
+                </table>
+                {% else %}
+                <div class="text-center">
+                    <p class="lead">
+                        There is no info about missions. 
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+
+
+{% endblock %}

@@ -11,8 +11,11 @@
                 <form method="POST"  class="form-group">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <div class="text-right">
-                        <button class="btn btn-primary" type="submit">Log In</button>
+                    <div class="row">
+                        <div class="col-md-8"><a href="{% url 'register' %}"> Register </a></div>
+                        <div class="col-md-4">
+                            <button class="btn btn-primary" type="submit">Log In</button>
+                        </div>
                     </div>
                 </form>
                 {% endif%}

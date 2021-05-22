@@ -19,24 +19,27 @@
         <div class="container-fluid">
             <div class="row"></div>
                 <div class="col-md-1 text-light"><h4>7waysNet</h4></div>
-                <div class="col-md-7"></div>
-                <div class="col-md-4">
-                    <a class="btn btn-outline-primary" href="{% url 'index' %}">Home</a>
-                    <a class="btn btn-outline-primary" href="{% url 'ninjas:show_all_ninjas' %}">Ninjas</a>
-                    <a class="btn btn-outline-primary" href="#implementar_la_list_view_de_misiones">Misiones</a>
-                    {% if user.is_authenticated %}
-                        {% if user.ninja %} <!-- ver como hacer esto sin los if -->
-                            <a class="btn btn-outline-primary" href="{% url 'ninjas:profile' user.ninja.pk %}">{{user.ninja.name}}</a>
-                        {% elif user.client%}
-                            <a class="btn btn-outline-primary" href="#implementar_el_perfil_del_cliente">{{user.client.name}}</a>
-                        {% else %}  
-                        <a class="btn btn-outline-primary" href="/admin/">{{user.username}}</a>
+                <div class="col-md-5"></div>
+                <div class="col-md-6">
+                        <a class="btn btn-outline-primary" href="{% url 'index' %}">Home</a> | 
+                        <a class="btn btn-outline-primary" href="{% url 'ninjas:show_all_ninjas' %}">Ninjas</a> 
+                        <a class="btn btn-outline-primary" href="{% url 'ninjas:show_all_teams' %}">Teams</a> | 
+                        <a class="btn btn-outline-primary" href="{% url 'missions:show_all_missions' %}">Misiones</a> 
+                        <a class="btn btn-outline-primary" href="{% url 'missions:show_all_clients' %}">Clients</a> | 
+                        {% if user.is_authenticated %}
+                            {% if user.ninja %} <!-- ver como hacer esto sin los if -->
+                                <a class="btn btn-outline-primary" href="{% url 'ninjas:profile' user.ninja.pk %}">{{user.ninja.name}}</a>
+                            {% elif user.client%}
+                                <a class="btn btn-outline-primary" href="{% url 'missions:profile' user.client.pk %}">{{user.client.name}}</a>
+                            {% else %}  
+                            <a class="btn btn-outline-primary" href="/admin/">{{user.username}}</a>
+                            {% endif %}
+                            <a class="btn btn-outline-danger" href="{% url 'logout' %}">LogOut</a>
+                        {% else %}
+                             <a class="btn btn-outline-primary" href="{% url 'login'%}">LogIn</a> 
+                        
                         {% endif %}
-                        <a class="btn btn-outline-danger" href="{% url 'logout' %}">LogOut</a>
-                    {% else %}
-                        <a class="btn btn-outline-primary" href="{% url 'login'%}">LogIn</a>
                     
-                    {% endif%}
                 </div>
             </div>
         </div>

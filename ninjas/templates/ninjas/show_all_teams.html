@@ -1,0 +1,34 @@
+{%extends 'base.html'%}
+
+
+{% block title %} Teams {% endblock %}
+
+
+{% block header %} 
+    <div class="page-header">
+        <h1 class="display-4"> Teams! </h1>
+        <hr>
+    </div>
+    <p class="lead"> All the teams.</p>
+{% endblock %}
+
+
+
+{%  block content %}
+{% if all_teams_list %}
+    <table class="table">
+        <tr class="bg-secondary text-light ">
+            <th>id</th><th>Nombre</th><th>Total Members</th>
+        </tr>
+        {% for team in all_teams_list %}
+            <tr>
+                <td> {{team.id}}</td> 
+                <td><a href="{% url 'ninjas:show_team' team.pk %}"> Team {{team.name}}</a></td> 
+                <td> {{team.length}} </td> <!-- Aqui deberia ir la cantidad de miembros del equipo -->
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No teams in database.</p>
+{% endif %}
+{% endblock%}

@@ -3,6 +3,7 @@ from django.views import generic
 
 from .models import Client, Mission
 
+
 # Create your views here.
 class ShowAllClientsView(generic.ListView):
     template_name = 'missions/show_all_clients.html'
@@ -17,3 +18,11 @@ class ShowAllMissionsView(generic.ListView):
 
     def get_queryset(self):
         return Mission.objects.all()
+
+class MissionDetailView(generic.DetailView):
+    model= Mission
+    template_name = "missions/mission_details.html"
+
+class ClientProfileView(generic.DetailView):
+    model = Client
+    template_name = "missions/profile.html"

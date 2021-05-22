@@ -1,5 +1,76 @@
-{% if ninja.team %}
-    <p>The team of {{ ninja.name }} is {{ ninja.team }}</p>
-{% else %}
-    <p>The ninja {{ ninja.name }} has no team</p>
-{% endif %}
+
+{%extends 'base.html'%}
+
+{% block title %} 
+    Team of {{ninja.name}}
+{% endblock %}
+
+
+
+{% block header %}
+<div class="page-header">
+    {% if ninja.team %}
+        <h1 class="display-5"> Team {{ninja.team.name}}</h1>
+        <hr>
+        <p class="lead"> Team of {{ninja.name}} </p>
+    {% else %}
+        <h1 class="display-5"> {{ninja.name}} has no team.</h1>
+    {%endif%}
+</div>
+{% endblock %}
+
+
+
+{%  block content %}
+    {% if ninja.team %}
+        <table class="table">
+            <tr class="bg-secondary text-light ">
+                <th>id</th><th>Name</th><th>Clase</th>
+            </tr>
+            {% for ninja in ninja.team.members %}
+                <tr>
+                    <td> {{ninja.id}}</td> 
+                    <td><a href="{% url 'ninjas:profile' ninja.pk %}"> {{ninja.name}}</a></td> 
+                    <td>{{ninja.ninja_class}} </td> <!-- Aqui deberia ir la clase asociada al ninja... -->
+                </tr>
+            {% endfor %}
+        </table>
+        
+        <!-- Aqui salen las misiones asociadas al equipo ...  arrglar -->
+        <div class="row jumbotron">
+            <div class="col-md-12">
+                
+                {% if ninja.team.missions %}
+                <h4>Missions:</h4>
+                <table class="table">
+                    <tr>
+                        <th>Id</th> <th>Mision</th> <th>Mission Results</th>
+                    </tr>
+                    {% for m in ninja.team.missions %}
+                        <tr>
+                            <td>{{m.pk}}</td> <td> <a href="{% url 'missions:mission_details' m.pk %}"> {{m.name}}</a> </td>
+                            <td>
+                                {% if m.missionResults %}
+                                    {{m.missionResults.result}}
+                                {% else %} 
+                                No results.
+                                {% endif %}
+                            </td>
+                        </tr>    
+                    {% endfor %}
+                </table>
+                {% else %}
+                <div class="text-center">
+                    <p class="lead">
+                        No se encontro informacion de  realizaciones de misiones. 
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        
+    {%endif%}
+
+
+{% endblock%}

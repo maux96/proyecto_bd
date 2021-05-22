@@ -1,3 +1,4 @@
+import ninjas
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
@@ -19,6 +20,12 @@ class ShowAllNinjasView(generic.ListView):
     def get_queryset(self):
         return Ninja.objects.all()
 
+class ShowAllTeamsView(generic.ListView):
+    template_name='ninjas/show_all_teams.html'
+    context_object_name='all_teams_list'
+
+    def get_queryset(self):
+        return Team.objects.all()
 
 class ShowNinjaSkillsView(generic.ListView):
     template_name = 'ninjas/show_ninja_skills.html'
@@ -41,6 +48,11 @@ class ShowNinjaInvocationsView(generic.ListView):
 class ShowNinjaTeamView(generic.DetailView):
     model = Ninja
     template_name = 'ninjas/show_ninja_team.html'
+
+
+def ShowTeamView(request,pk):
+    first_ninja_in_team=Team.objects.get(id=pk).members()[0]
+    return  render(request,"ninjas/show_team.html",context={'ninja': first_ninja_in_team})
 
 
 def ShowTeamMissionView(request, pk):

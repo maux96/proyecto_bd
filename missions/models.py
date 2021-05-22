@@ -1,12 +1,19 @@
 from django.db import models
 from ninjas.models import Team, JouninNinja
 from skills.models import Parchment
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Client(models.Model):
     #client basic attribute
     name = models.CharField(max_length=200)
     country = models.CharField(max_length=200)
+
+    #cuenta de django relacionada con cliente
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+
+    def missions(self):
+        return Mission.objects.filter(client_id=self.pk )
 
     def __str__(self):
         return self.name
@@ -43,6 +50,9 @@ class Mission(models.Model):
     #mission jounin relationship
     leader = models.ForeignKey(JouninNinja, on_delete=models.CASCADE, default=None, blank=True)
 
+    def missionResults(self):
+        return MissionResult.objects.get(mission_id=self.pk)
+
     def __str__(self):
         return self.name
 
@@ -54,3 +64,6 @@ class MissionResult(models.Model):
 
     #missionResult mission relationship
     mission = models.ForeignKey(Mission, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "("+str(self.pk)+") "+self.mission.name

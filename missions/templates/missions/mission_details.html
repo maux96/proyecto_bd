@@ -1,0 +1,70 @@
+{% extends 'base.html'%}
+
+{% block title %}
+    Mission {{mission.name}}
+{% endblock%}
+
+{% block header %}
+<div class="page-header">
+    <h1 class="display-5">{{mission.name}} </h1>
+</div>
+{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+    <div class="col-md-6">
+        <h4>Descripcion:</h4> 
+        {{mission.description}}
+    </div>
+    <div class="col-md-6">
+    <h4>Resumen:</h4>
+    <table class="table">
+        <tr>
+            <td> Assigned Team</td> <td> {{mission.team}}</td>
+        </tr>
+        <tr>
+            <td> Team Leader</td> <td> {{mission.leader}}</td>
+        </tr>
+        <tr>
+            <td> Client </td> <td> {{mission.client.name}}</td>
+        </tr>    
+        <tr>
+            <td> Client's country </td> <td> {{mission.client.country}}</td>
+        </tr>
+        <tr>
+            <td> Rank</td> <td> {{mission.rank}}</td>
+        </tr>
+        <tr>
+            <td> Reward</td> <td> {{mission.reward}}</td>
+        </tr>        
+        <tr>
+            <td> Available</td> <td> {{mission.available}}</td>
+        </tr>
+    </table>
+    </div>
+    </div>
+    <div class="row jumbotron">
+        <div class="col-md-12">
+
+            {% if mission.missionResults %}
+                <h4>Results:</h4>
+                
+                <table class="table">
+                    <tr>
+                        <th>Id</th> <th>Result</th> <th>Begin Date</th> <th>End Date</th>
+                    </tr>
+                    <tr>
+                        <td>{{mission.missionResults.pk}}</td><td>  {{mission.missionResults.result}}</td> <td>{{mission.missionResults.begin_date}}</td> <td>{{mission.missionResults.end_date}}</td>
+                    </tr>    
+                </table>
+            {% else %}
+            <div class="text-center">
+                <p class="lead">
+                    There are no results. 
+                </p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

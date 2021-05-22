@@ -1,4 +1,108 @@
-<h1>Bienvenido {{ ninja.name }}</h1>
+{% extends 'base.html' %}
 
-<p>{{ ninja.age }}</p>
-<p>{{ ninja.clan }}</p>
+{% block title %} {{ninja.name}} {% endblock %}
+
+{% block header %}
+<div class="page-header">
+    <h1 class="display-5">{{ninja.clan}}  {{ninja.name}} </h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row" >
+    <div class="col-md-6">
+       
+        <h3>Descripcion: </h3>
+        <p class="text-justify">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus, eveniet numquam ad porro eaque quaerat, natus ullam cupiditate ipsa corrupti, quasi mollitia eius excepturi repellat saepe commodi animi voluptas exercitationem.</p>
+        <!-- Habilidades: -->
+        <div>
+            {% if ninja.ninja_skills %} 
+                <h3>Habilidades:</h3>
+                <table class="table">
+                    <tr> <th>Nombre</th> <th>Elemento</th> <th>Cant. Chakara</th> </tr>
+                    {% for skill in ninja.ninja_skills %}
+                        <tr>
+                            <td>{{skill.name}}</td><td> {{skill.element}}</td> <td>{{skill.chakra_required}}</td> 
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p class="lead"> No se encontro habilidades.</p>
+            {% endif %}
+        </div>
+        <!-- Invocaciones -->
+        <div>
+            {% if ninja.ninja_invocations %} 
+                <h3>Invocaciones:</h3>
+                <table class="table">
+                    <tr> <th>Nombre</th> <th>Tipo</th>
+                    {% for inv in ninja.ninja_invocations %}
+                        <tr>
+                            <td>{{inv.name}}</td><td>{{inv.invocation_type}}</td> 
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p class="lead"> No se encontraron invocaciones.</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h3>Resumen</h3>
+        <table class="table">
+            <tr>
+                <td>Usuario: </td> <td>{{ ninja.user }}</td>
+            </tr>
+            <tr>
+                <td> Clase: </td> <td>{{ninja.ninja_class}}</td>
+            </tr>
+            <tr>
+                <td> Genero: </td> <td>{{ninja.gender}}</td>
+            </tr>
+            <tr>
+                <td> Clan: </td> <td>{{ninja.clan}}</td>
+            </tr>
+            <tr>
+                <td> Nacimiento: </td> <td>{{ninja.birth_date}} ({{ninja.age}} años) </td>
+            </tr>
+            <!-- info de ninja -->
+            {% for info_name,info_value in ninja.ninja_info%} 
+            <tr>
+                <td> {{info_name}}</td>
+                <td> {{info_value}} </td>
+            </tr>
+            {%endfor%}
+            
+            <!-- info equipo -->
+            {% if ninja.team %}
+                <tr>
+                    <td> Equipo: </td> <td> <a href="{% url 'ninjas:show_ninja_team' ninja.pk%}">{{ninja.team}}</a> </td>
+                </tr>
+                <tr>
+                    <!-- aqui estaria si tiene lider el equipo (Buscar en el primer proyecto empezado) -->
+                <td> Miembros de su Equipo: </td> 
+                <td> 
+                    
+                    {% for n in ninja.team.members %}
+                        <p><a href="{% url 'ninjas:profile' n.pk %}">{{n.name}}</a></p>
+                    {% endfor %}    
+                </td>
+                
+                </tr>
+            {% else %}
+                <tr>
+                    <td>
+                        No hay informacion de su equipo.
+                    </td>
+                    <td></td>
+                </tr>
+            {% endif %}
+           <!-- aqui estaria si es lider de algun equipo (Buscar en el primer proyecto empezado) -->
+           
+        </table>
+    </div>
+</div>
+
+
+    
+{% endblock %}

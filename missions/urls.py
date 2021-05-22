@@ -6,4 +6,6 @@ app_name = "missions"
 urlpatterns = [
     path('allClients/', views.ShowAllClientsView.as_view(), name='show_all_clients'),
     path('allMissions/', views.ShowAllMissionsView.as_view(), name='show_all_missions'),
+    path('mission/<int:pk>', views.MissionDetailView.as_view() , name='mission_details'),
+    path('client/<int:pk>', views.ClientProfileView.as_view() , name='profile'),
 ]
