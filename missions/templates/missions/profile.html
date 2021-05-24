@@ -4,7 +4,14 @@
 
 {% block header %}
 <div class="page-header">
-    <h1 class="display-5">{{client.name}} </h1>
+    <h1 class="display-5">
+        {{client.name}}
+    </h1>
+    {% if user.client.pk == client.pk %}
+    <div>
+        <a href="{% url 'missions:create_mission' %}"><button class="btn btn-primary">Create Mission </button></a>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
 

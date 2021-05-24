@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %} Create Mission {% endblock %}
+
+{% block header %} 
+<div class="header">
+    <h1 class="display-4"> Create Mission </h1>
+</div>
+{% endblock %}
+    
+{% block content %}  
+    <form action="{% url 'missions:create_mission' %}" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="fieldWraper"> 
+                {{ field.errors }}  
+                {{ field.label_tag }} 
+                {{ field  }}
+            </div>
+        {% endfor %}
+        <p>
+
+        </p>
+        <div class="fieldWraper">
+            <input class="form-control btn-primary" type="submit" value="Submit">
+        </div>
+        <p>
+
+        </p>
+    </form>
+{% endblock %}
+

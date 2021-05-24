@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import tree
 from ninjas.models import Team, JouninNinja
 from skills.models import Parchment
 from django.contrib.auth.models import User
@@ -42,13 +43,13 @@ class Mission(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
 
     #mission team relationship
-    team = models.ForeignKey(Team, on_delete=models.CASCADE, default=None, blank=True)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, default=None, blank=True,null=True)
 
     #mission inventory relationship
     inventory = models.OneToOneField(Inventory, on_delete=models.CASCADE, default=None, null=True, blank=True)
 
     #mission jounin relationship
-    leader = models.ForeignKey(JouninNinja, on_delete=models.CASCADE, default=None, blank=True)
+    leader = models.ForeignKey(JouninNinja, on_delete=models.CASCADE, default=None, blank=True,null=True)
 
     def missionResults(self):
         return MissionResult.objects.get(mission_id=self.pk)
