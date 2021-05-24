@@ -5,11 +5,6 @@ from django.forms import widgets
 
 from .models import Client, Mission
 
-class MyCharField(forms.CharField):
-    widgets={
-        'class':'form-control'
-    }
-    pass
 
 """         #eto ta weno       
 class CreateMissionForm2(forms.ModelForm):
@@ -24,7 +19,7 @@ class CreateMissionForm2(forms.ModelForm):
         } """
 
 class CreateMissionForm(forms.Form):
-    name = MyCharField(label="Mission Name",max_length=100) 
+    name = forms.CharField(label="Mission Name",max_length=100) 
     description = forms.CharField(label="Description",max_length=500, widget=widgets.Textarea(attrs={'rows': 3}))
     rank = forms.CharField(label="Mission Rank",max_length=5)
     reward = forms.IntegerField(label="Mission Reward")

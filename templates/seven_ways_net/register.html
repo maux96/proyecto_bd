@@ -45,14 +45,14 @@
         <div class="space20"></div>
 
 
-        <div class="row">
+        
             <label for="name" >Name:</label>
             <input class="form-control" type="text" name="name" placeholder="Name">
-        </div>
+        
 
         <div id="registertype" > 
             <div id="ninjar" hidden="true">
-                <div class="row">
+                
                     
                     <label for="clan" >Clan:</label>
                     <input class="form-control" type="text" name="clan" placeholder="Clan">
@@ -67,15 +67,36 @@
                         <option value="F"></option>
                         <option value="Other"></option>
                     </datalist>
+                
+                    <hr>
+                    <div class="myflex">
+                        <div>
+                            <label  >Genin</label>
+                            <input type="radio" class="form-control" name="ninjaType" value="genin"  required>
+                        </div>
+                        <div>
+                            <label >Chunin</label>
+                            <input type="radio" class="form-control" name="ninjaType" value="chunin"  required>
+                        </div>
+                        <div>
+                            <label >Jounin</label>
+                            <input type="radio" class="form-control" name="ninjaType" value="jounin"   required>
+                        </div>
+                    </div>
+                    <hr>
+                    <label for="graduationdate" >Graduation Date:</label>
+                    <input  class="form-control" type="date" name="graduationdate" placeholder="Graduation Date" required>
                     
-                </div>
+                    <label for="calification" >Calification:</label>
+                    <input  class="form-control" type="number" max="5" min="2" name="calification" placeholder="Calification" required>
+                
             </div>
 
             <div id="clientr" hidden="true">
-                <div class="row">
+                
                     <label for="country" >Country:</label>
                     <input class="form-control" type="text" name="country" placeholder="Country">
-                </div>
+                
             </div>
         </div>
 

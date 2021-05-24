@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.http import HttpRequest
-from ninjas.models import Ninja,User
+from ninjas.models import ChuninNinja, GeninNinja, JouninNinja, Ninja,User
 from missions.models import Client
 from datetime import date,datetime
 
@@ -32,8 +32,17 @@ def endRegister(request :HttpRequest):
         birth_date =  request.POST.get("birthdate")
         birth_date = date.fromisoformat(birth_date)
         gender =  request.POST.get("gender")
+        ninjaType = request.POST.get("ninjaType")
+        graduation_date = request.POST.get("graduationdate")
+        calification = request.POST.get("calification")
+        
         user.save()
-        Ninja(name=name, age = calc_age(birth_date),clan=clan, birth_date = birth_date,gender = gender, user=user).save()
+        if ninjaType == "genin":            
+            GeninNinja(name=name, age = calc_age(birth_date),clan=clan, birth_date = birth_date,gender = gender, user=user,graduation_date = graduation_date,assessment = calification).save()    
+        elif ninjaType == "chunin":
+            ChuninNinja(name=name, age = calc_age(birth_date),clan=clan, birth_date = birth_date,gender = gender, user=user,exam_date = graduation_date,classification = calification).save()    
+        elif ninjaType == "jounin":
+            JouninNinja(name=name, age = calc_age(birth_date),clan=clan, birth_date = birth_date,gender = gender, user=user,exam_date = graduation_date,classification = calification).save()    
     else:
         country=request.POST.get("country")
         user.save()
