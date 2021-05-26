@@ -1,9 +1,34 @@
+{%extends 'base.html'%}
+
+
+{% block title %} Invocations {% endblock %}
+
+
+{% block header %} 
+    <div class="page-header">
+        <h1 class="display-4"> Invocations! </h1>
+        <hr>
+    </div>
+    <p class="lead"> All the invocations.</p>
+{% endblock %}
+
+
+
+{%  block content %}
 {% if all_invocations_list %}
-    <ul>
-    {% for invocation in all_invocations_list %}
-        <li>{{ invocation.name }}</li>
-    {% endfor %}
-    </ul>
+    <table class="table">
+        <tr class="bg-secondary text-light ">
+            <th>ID</th><th>Name</th><th>Type</th>
+        </tr>
+        {% for invocation in all_invocations_list %}
+            <tr>
+                <td> {{invocation.id}}</td> 
+                <td> {{invocation.name}}</td>
+                <td> {{invocation.invocation_type}} </td>
+            </tr>
+        {% endfor %}
+    </table>
 {% else %}
     <p>No invocations in database.</p>
 {% endif %}
+{% endblock%}
