@@ -1,9 +1,38 @@
+{%extends 'base.html'%}
+
+
+{% block title %} Skills {% endblock %}
+
+
+{% block header %} 
+    <div class="page-header">
+        <h1 class="display-4"> Skills! </h1>
+        <hr>
+    </div>
+    <p class="lead"> All the skills.</p>
+{% endblock %}
+
+
+
+{%  block content %}
 {% if all_skills_list %}
-    <ul>
-    {% for skill in all_skills_list %}
-        <li>{{ skill.name }}</li>
-    {% endfor %}
-    </ul>
+    <table class="table">
+        <tr class="bg-secondary text-light ">
+            <th>ID</th><th>Name</th><th>Element</th>
+        </tr>
+        {% for skill in all_skills_list %}
+            <tr>
+                <td> {{skill.id}}</td> 
+                {% if skill.id %}
+                    <td><a href="{% url 'skills:attack_skill_detail' skill.pk %}"> {{skill.name}}</a></td>
+                {% else %}
+                    <td><a href="{% url 'skills:heal_skill_detail' skill.pk %}"> {{skill.name}}</a></td>
+                {% endif %}
+                <td>{{skill.element}} </td>
+            </tr>
+        {% endfor %}
+    </table>
 {% else %}
     <p>No skills in database.</p>
 {% endif %}
+{% endblock%}

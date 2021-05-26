@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Invocation(models.Model):
@@ -7,3 +8,6 @@ class Invocation(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('invocations:invocation_detail', kwargs={'pk': self.pk})

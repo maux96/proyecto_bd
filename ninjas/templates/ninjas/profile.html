@@ -4,6 +4,7 @@
 
 {% block header %}
 <div class="page-header">
+    
     <h1 class="display-5">{{ninja.clan}}  {{ninja.name}} </h1>
 </div>
 {% endblock %}
@@ -100,6 +101,17 @@
            <!-- aqui estaria si es lider de algun equipo (Buscar en el primer proyecto empezado) -->
            
         </table>
+    {% if user.ninja.pk == ninja.pk %}
+    <div>
+        <a href="{% url 'skills:create_attack_skill' %}"><button class="btn btn-primary">Create AttackSkill </button></a>
+        <a href="{% url 'skills:create_heal_skill' %}"><button class="btn btn-primary">Create HealSkill </button></a>
+        <a href="{% url 'skills:learn_skill' %}"><button class="btn btn-primary">Learn Skill </button></a>
+    </div>
+    <div>
+        <a href="{% url 'invocations:create_invocation' %}"><button class="btn btn-primary">Create Invocation </button></a>
+        <a href="{% url 'invocations:learn_invocation' %}"><button class="btn btn-primary">Learn Invocation </button></a>
+    </div>
+    {% endif %}
     </div>
 </div>
 

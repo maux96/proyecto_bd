@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Skill(models.Model):
@@ -16,10 +17,16 @@ class AttackSkill(Skill):
     #attackSkill basic attribute
     range = models.IntegerField()
 
+    def get_absolute_url(self):
+        return reverse('skills:attack_skill_detail', kwargs={'pk': self.pk})
+
 
 class HealSkill(Skill):
     #healSkill basic attribute
     speed = models.IntegerField()
+
+    def get_absolute_url(self):
+        return reverse('skills:heal_skill_detail', kwargs={'pk': self.pk})
 
 
 class Parchment(models.Model):
