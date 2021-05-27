@@ -1,5 +1,6 @@
 #import ninjas
-from django.shortcuts import render, get_object_or_404
+from django.http.request import HttpRequest
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 
@@ -11,8 +12,7 @@ class ShowNinjaProfileView(LoginRequiredMixin, generic.DetailView):
     login_url = '/auth/login/'
     model = Ninja
     template_name = 'ninjas/profile.html'
-
-
+    
 class ShowAllNinjasView(generic.ListView):
     template_name = 'ninjas/show_all_ninjas.html'
     context_object_name = 'all_ninjas_list'
@@ -85,3 +85,39 @@ class ShowTeamMissionsView(generic.ListView):
     def get_queryset(self):
         team_object = get_object_or_404(Team, pk=self.kwargs['pk'])
         return team_object.mission_set.all()
+
+
+
+
+
+#Querys :)
+class ShowNinjasQuerys(generic.ListView):
+    template_name = "ninjas/show_ninja_query.html"
+    context_object_name = "ninja_query"
+    paginate_by = 5
+
+
+class ShowAllNinjasQuery(ShowNinjasQuerys):
+    def get_queryset(self):
+        return Ninja.objects.all()
+class ShowNinjaTeamQuery(ShowNinjasQuerys):
+    def get_queryset(self):
+        team_pk =self.kwargs['team']
+        return Ninja.objects.filter(team_pk = team_pk)
+class ShowNinjasByGender(ShowNinjasQuerys):
+    def get_queryset(self):
+        gender = self.kwargs['gender']
+        return Ninja.objects.filter(gender = gender)
+class ShowNinjasByClan(ShowNinjasQuerys):
+    def get_queryset(self):
+        clan = self.kwargs['clan']
+        return Ninja.objects.filter(clan = clan)
+class ShowNinjasByAge(ShowNinjasQuerys):
+    def get_queryset(self):
+        age = self.kwargs['age']
+        return Ninja.objects.filter(age = age)
+        
+def filter(request : HttpRequest):
+    value = request.POST['criteria']
+    arg = request.POST['serach']
+    return redirect(value+"/"+arg)

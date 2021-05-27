@@ -7,8 +7,28 @@
 {% block header %} 
     <div class="page-header">
         <h1 class="display-4"> Clients! </h1>
-        <hr>
+        <div class="pagination">
+            <span class="step-links">
+                <div class="btn-group">
+                {% if page_obj.has_previous %}
+            
+                    <a class="btn btn-outline-primary" href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% else %}
+                    <a class="btn btn-outline-primary disabled" >previous</a>
+                {% endif %}
+                <span class="current btn btn-primary disabled">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a class="btn btn-outline-primary" href="?page={{ page_obj.next_page_number }}">next</a>
+                {% else %}
+                    <a class="btn btn-outline-primary disabled" >next</a>
+                {% endif %}
+                </div>
+            </span>
+        </div>
     </div>
+    <hr>
     <p class="lead"> All the clients.</p>
 {% endblock %}
 

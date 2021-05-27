@@ -13,4 +13,11 @@ urlpatterns = [
     path('team/<int:pk>/', views.ShowTeamView , name='show_team'),
     path('teamMission/<int:pk>/', views.ShowTeamMissionView, name='show_team_mission'),
     path('teamMissions/<int:pk>/', views.ShowTeamMissionsView.as_view(), name='show_team_missions'),
+
+    path('all/', views.ShowAllNinjasQuery.as_view(), name='all'),
+    path('teamquery/<int:pk>', views.ShowNinjaTeamQuery.as_view(), name='teamquery'),
+    path('gender/<str:gender>', views.ShowNinjasByGender.as_view(), name='gender'),
+    path('clan/<str:clan>', views.ShowNinjasByClan.as_view(), name='clan'),
+    path('age/<int:age>', views.ShowNinjasByAge.as_view(), name='age'),
+    path('filter',views.filter,name='filter')
 ]

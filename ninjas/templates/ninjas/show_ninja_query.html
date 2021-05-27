@@ -1,0 +1,104 @@
+{%extends 'base.html'%}
+
+
+{% block title %} Ninjas: {% endblock %}
+
+
+{% block header %} 
+    <div class="page-header">
+        <h1 class="display-4"> Ninjas! {{title}} </h1>
+        <hr>
+
+        <div class="pagination">
+            <span class="step-links">
+                <div class="btn-group">
+                {% if page_obj.has_previous %}
+            
+                    <a class="btn btn-outline-primary" href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% else %}
+                    <a class="btn btn-outline-primary disabled" >previous</a>
+                {% endif %}
+                <span class="current btn btn-primary disabled">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a class="btn btn-outline-primary" href="?page={{ page_obj.next_page_number }}">next</a>
+                {% else %}
+                    <a class="btn btn-outline-primary disabled" >next</a>
+                {% endif %}
+                </div>
+            </span>
+        </div>
+
+    </div>
+    <p class="lead"> All the ninjas.</p>
+{% endblock %}
+
+
+
+{%  block content %}
+<div class="row">
+        <form action="{% url 'ninjas:filter' %}" method="POST" class="col-md-4">
+            {% csrf_token %}
+            <div class="list-group">
+                <div class="list-group-item myflex">
+                    <label>All</label>
+                    <input name="criteria"  type="radio" value="all" onclick="disable('All')" checked>
+                </div>
+                <div class="list-group-item myflex">
+                    <label>Gender</label>
+                    <input name="criteria" type="radio" value="gender" onclick="disable('M / F / other')">
+                </div>
+                <div class="list-group-item myflex">
+                    <label>Clan</label>
+                    <input name="criteria" type="radio" value="clan" onclick="disable('Clan Name')">
+                </div>
+                <div class="list-group-item myflex">
+                    <label>Age</label>
+                    <input name="criteria" type="radio" value="age" onclick="disable('Age')">
+                </div>
+            </div>
+            <p></p>
+            <input name="serach" class="form-control" placeholder="to serach.." value="" hidden="true" required>
+            <p></p>
+            <input class="form-control btn-primary" type="submit" name="submit" value="Filter!">
+        </form>
+{% if ninja_query %}
+    <div class="col-md-8">
+        <table class="table">
+            <tr class="bg-secondary text-light ">
+                <th>ID</th><th>Name</th><th>Class</th>
+            </tr>
+            {% for ninja in ninja_query %}
+                <tr>
+                    <td> {{ninja.id}}</td> 
+                    <td><a href="{% url 'ninjas:profile' ninja.pk %}"> {{ninja.name}}</a></td> <!-- Aqui deberia haber un link a el perfil de el ninja... -->
+                    <td>{{ninja.ninja_class}} </td> <!-- Aqui deberia ir la clase asociada al ninja... -->
+                </tr>
+            {% endfor %}
+        </table>
+        
+    {% else %}
+        <p class="lead text-center col-md-8">No ninjas in database.</p>
+    {% endif %}
+    </div>
+    <script>
+        element = document.getElementsByName("serach")[0]
+        element.required = false
+        function disable(type)
+        {
+            element.value = ""
+            if (type=='All'){
+                element.required = false
+                element.hidden = true
+                
+            }
+            else{ 
+                element.required = true
+                element.hidden = false
+                element.setAttribute('placeholder',type)
+            }
+        }
+    </script>
+</div>
+{% endblock%}

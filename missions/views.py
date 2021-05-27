@@ -12,13 +12,14 @@ from .mission_form import CreateMissionForm
 class ShowAllClientsView(generic.ListView):
     template_name = 'missions/show_all_clients.html'
     context_object_name = 'all_clients_list'
-
+    paginate_by= 5
     def get_queryset(self):
         return Client.objects.all()
 
 class ShowAllMissionsView(generic.ListView):
     template_name = 'missions/show_all_missions.html'
     context_object_name = 'all_missions_list'
+    paginate_by = 5
 
     def get_queryset(self):
         return Mission.objects.all()
