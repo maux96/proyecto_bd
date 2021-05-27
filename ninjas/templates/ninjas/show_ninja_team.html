@@ -25,7 +25,7 @@
     {% if ninja.team %}
         <table class="table">
             <tr class="bg-secondary text-light ">
-                <th>id</th><th>Name</th><th>Clase</th>
+                <th>id</th><th>Name</th><th>Class</th>
             </tr>
             {% for ninja in ninja.team.members %}
                 <tr>
@@ -44,7 +44,7 @@
                 <h4>Missions:</h4>
                 <table class="table">
                     <tr>
-                        <th>Id</th> <th>Mision</th> <th>Mission Results</th>
+                        <th>Id</th> <th>Mission</th> <th>Mission Results</th>
                     </tr>
                     {% for m in ninja.team.missions %}
                         <tr>

@@ -14,21 +14,27 @@
 {% block content %}
     <div class="row">
     <div class="col-md-6">
-        <h4>Descripcion:</h4> 
+        <h4>Description:</h4> 
         {{mission.description}}
     </div>
     <div class="col-md-6">
-    <h4>Resumen:</h4>
+    <h4>Resume:</h4>
     <table class="table">
+        {% if mission.team %}
         <tr>
-            <td> Assigned Team</td> <td> {{mission.team}}</td>
+            <td> Assigned Team</td> <td> <a href="{% url 'ninjas:show_team' mission.team.pk %}"> {{mission.team}} </a></td>
         </tr>
+        {% endif %}
+        {% if mission.leader %}
         <tr>
-            <td> Team Leader</td> <td> {{mission.leader}}</td>
+            <td> Team Leader</td> <td> <a href="{% url 'ninjas:profile' mission.leader.pk %}"> {{mission.leader}} </a> </td>
         </tr>
+        {% endif %}
+        {% if mission.client %}
         <tr>
-            <td> Client </td> <td> {{mission.client.name}}</td>
+            <td> Client </td> <td>  <a href="{% url 'missions:profile' mission.client.pk %}">{{mission.client.name}} </a> </td>
         </tr>    
+        {% endif %}
         <tr>
             <td> Client's country </td> <td> {{mission.client.country}}</td>
         </tr>

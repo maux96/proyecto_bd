@@ -6,6 +6,17 @@
 <div class="page-header">
     
     <h1 class="display-5">{{ninja.clan}}  {{ninja.name}} </h1>
+    {% if user.ninja.pk == ninja.pk %}
+    
+        <div class="btn-group" >
+            <a  class="btn btn-primary" href="{% url 'skills:create_attack_skill' %}">Create AttackSkill </a>
+            <a class="btn btn-primary"  href="{% url 'skills:create_heal_skill' %}">Create HealSkill </a>
+            <a class="btn btn-primary" href="{% url 'skills:learn_skill' %}">Learn Skill</a>
+    
+            <a class="btn btn-primary" href="{% url 'invocations:create_invocation' %}">Create Invocation </a>
+            <a class="btn btn-primary" href="{% url 'invocations:learn_invocation' %}">Learn Invocation </a>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}
 
@@ -13,14 +24,14 @@
 <div class="row" >
     <div class="col-md-6">
        
-        <h3>Descripcion: </h3>
+        <h3>Description: </h3>
         <p class="text-justify">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus, eveniet numquam ad porro eaque quaerat, natus ullam cupiditate ipsa corrupti, quasi mollitia eius excepturi repellat saepe commodi animi voluptas exercitationem.</p>
         <!-- Habilidades: -->
         <div>
             {% if ninja.ninja_skills %} 
-                <h3>Habilidades:</h3>
+                <h3>Skills:</h3>
                 <table class="table">
-                    <tr> <th>Nombre</th> <th>Elemento</th> <th>Cant. Chakara</th> </tr>
+                    <tr> <th>Name</th> <th>Element</th> <th>Chakara Required</th> </tr>
                     {% for skill in ninja.ninja_skills %}
                         <tr>
                             <td>{{skill.name}}</td><td> {{skill.element}}</td> <td>{{skill.chakra_required}}</td> 
@@ -28,7 +39,7 @@
                     {% endfor %}
                 </table>
             {% else %}
-                <p class="lead"> No se encontro habilidades.</p>
+                <p class="lead"> There are no skills.</p>
             {% endif %}
         </div>
         <!-- Invocaciones -->
@@ -44,7 +55,7 @@
                     {% endfor %}
                 </table>
             {% else %}
-                <p class="lead"> No se encontraron invocaciones.</p>
+                <p class="lead"> There are no invocations.</p>
             {% endif %}
         </div>
     </div>
@@ -52,19 +63,19 @@
         <h3>Resumen</h3>
         <table class="table">
             <tr>
-                <td>Usuario: </td> <td>{{ ninja.user }}</td>
+                <td>User: </td> <td>{{ ninja.user }}</td>
             </tr>
             <tr>
-                <td> Clase: </td> <td>{{ninja.ninja_class}}</td>
+                <td> Class: </td> <td>{{ninja.ninja_class}}</td>
             </tr>
             <tr>
-                <td> Genero: </td> <td>{{ninja.gender}}</td>
+                <td> Gender: </td> <td>{{ninja.gender}}</td>
             </tr>
             <tr>
                 <td> Clan: </td> <td>{{ninja.clan}}</td>
             </tr>
             <tr>
-                <td> Nacimiento: </td> <td>{{ninja.birth_date}} ({{ninja.age}} años) </td>
+                <td> Birth Date: </td> <td>{{ninja.birth_date}} ({{ninja.age}} años) </td>
             </tr>
             <!-- info de ninja -->
             {% for info_name,info_value in ninja.ninja_info%} 
@@ -77,13 +88,12 @@
             <!-- info equipo -->
             {% if ninja.team %}
                 <tr>
-                    <td> Equipo: </td> <td> <a href="{% url 'ninjas:show_ninja_team' ninja.pk%}">{{ninja.team}}</a> </td>
+                    <td> Team: </td> <td> <a href="{% url 'ninjas:show_ninja_team' ninja.pk%}">{{ninja.team}}</a> </td>
                 </tr>
                 <tr>
                     <!-- aqui estaria si tiene lider el equipo (Buscar en el primer proyecto empezado) -->
-                <td> Miembros de su Equipo: </td> 
+                <td> Team Members: </td> 
                 <td> 
-                    
                     {% for n in ninja.team.members %}
                         <p><a href="{% url 'ninjas:profile' n.pk %}">{{n.name}}</a></p>
                     {% endfor %}    
@@ -93,7 +103,7 @@
             {% else %}
                 <tr>
                     <td>
-                        No hay informacion de su equipo.
+                        No team info.
                     </td>
                     <td></td>
                 </tr>
@@ -101,17 +111,6 @@
            <!-- aqui estaria si es lider de algun equipo (Buscar en el primer proyecto empezado) -->
            
         </table>
-    {% if user.ninja.pk == ninja.pk %}
-    <div>
-        <a href="{% url 'skills:create_attack_skill' %}"><button class="btn btn-primary">Create AttackSkill </button></a>
-        <a href="{% url 'skills:create_heal_skill' %}"><button class="btn btn-primary">Create HealSkill </button></a>
-        <a href="{% url 'skills:learn_skill' %}"><button class="btn btn-primary">Learn Skill </button></a>
-    </div>
-    <div>
-        <a href="{% url 'invocations:create_invocation' %}"><button class="btn btn-primary">Create Invocation </button></a>
-        <a href="{% url 'invocations:learn_invocation' %}"><button class="btn btn-primary">Learn Invocation </button></a>
-    </div>
-    {% endif %}
     </div>
 </div>
 
