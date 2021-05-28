@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="{% url 'skills:all_type_skill_detail' parchment.skill.pk %}"> {{ parchment.skill }}</a>
+<p>{{parchment.date}}</p>
+{% endblock %}
