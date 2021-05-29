@@ -1,9 +1,9 @@
 from typing import ClassVar
 from django import forms
 from django.db.models.fields import TextField
-from django.forms import widgets
+from django.forms import widgets, ModelForm
 
-from .models import Client, Mission
+from .models import Client, Mission, Parchment
 
 
 """         #eto ta weno       
@@ -32,3 +32,17 @@ class CreateMissionForm(forms.Form):
         for x in self.fields:
             self.fields[x].widget.attrs['class']='form-control'
     
+
+class CreateParchmentForm(ModelForm):
+    class Meta:
+        model = Parchment
+        fields = ['skill','date']
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args,**kwargs)
+        
+        #agregarmos la clase de bootstrap       ver como no tener que hacer esto aqui....
+        for x in self.fields:
+            if isinstance(self.fields[x].widget, widgets.CheckboxInput):
+                pass
+            else:
+                self.fields[x].widget.attrs['class']='form-control'

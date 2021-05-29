@@ -8,6 +8,7 @@
     <h1 class="display-5">{{ninja.clan}}  {{ninja.name}} </h1>
     {% if user.ninja.pk == ninja.pk %}
     
+    <div class="mycols"> 
         <div class="btn-group" >
             <a  class="btn btn-primary" href="{% url 'skills:create_attack_skill' %}">Create AttackSkill </a>
             <a class="btn btn-primary"  href="{% url 'skills:create_heal_skill' %}">Create HealSkill </a>
@@ -16,6 +17,20 @@
             <a class="btn btn-primary" href="{% url 'invocations:create_invocation' %}">Create Invocation </a>
             <a class="btn btn-primary" href="{% url 'invocations:learn_invocation' %}">Learn Invocation </a>
         </div>
+        
+        <div class="btn-group">
+            <a  class="btn btn-primary" href="{% url 'missions:create_parchment' %}">Create Parchment </a>
+
+            {% if ninja.specific_type.leading_team %}
+                <a  class="btn btn-primary" href="{% url 'ninjas:deliver_mission_result' %}">Deliver Mission Result </a>
+            {% endif %}
+            {% if ninja.specific_type.class_name == "Hokage" %}
+                <a  class="btn btn-primary" href="{% url 'ninjas:create_team' %}">Create Team </a>
+                <a  class="btn btn-primary" href="{% url 'ninjas:assign_mission' %}">Assign Mission </a>
+            {% endif %}
+        </div>
+    </div>
+
     {% endif %}
 </div>
 {% endblock %}

@@ -24,6 +24,12 @@
     
 }
 
+.mycols
+{
+    display: flex;
+    flex-flow: column;
+}
+
 .fixedclass
 {
     width: 100%;

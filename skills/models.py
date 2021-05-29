@@ -46,8 +46,3 @@ class HealSkill(Skill):
 
     def class_name(self):
         return "Heal"
-        
-class Parchment(models.Model):
-    #parchment basic attribute
-    skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
-    date = models.DateField()

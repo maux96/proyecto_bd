@@ -4,7 +4,6 @@ from .models import Skill, AttackSkill, HealSkill
 from .forms import CreateAttackSkillForm, CreateHealSkillForm, LearnSkillForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from itertools import chain
 from django.db.models.query import QuerySet
 
 # Create your views here.
@@ -18,6 +17,15 @@ class ShowAllSkillsView(generic.ListView):
         return Skill.objects.all()
 
 
+def AllTypeSkillDetail(request, pk):
+    try:
+        skill = AttackSkill.objects.get(pk=pk)
+        return render(request,'skills/attack_skill_detail.html',{'attackskill':skill})
+    except:
+        skill = HealSkill.objects.get(pk=pk)
+        return render(request,'skills/heal_skill_detail.html',{'healskill':skill})
+
+
 class LearnSkillView(generic.FormView):
     template_name = 'skills/learn_skill.html'
     form_class = LearnSkillForm
@@ -25,7 +33,13 @@ class LearnSkillView(generic.FormView):
     def form_valid(self, form):
         ninja = self.request.user.ninja
         for skill_form in form.cleaned_data['learn_skill']:
-            ninja.skills.add(skill_form)            
+            try:
+                healSkill = HealSkill.objects.get(pk=skill_form.pk)
+                ninja.skills.add(skill_form)
+                ninja.is_medic = True
+                ninja.save()
+            except:
+                ninja.skills.add(skill_form)
 
         return HttpResponseRedirect(reverse('ninjas:profile', kwargs={'pk': self.request.user.ninja.pk}))
 

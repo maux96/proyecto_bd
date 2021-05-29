@@ -1,8 +1,8 @@
 from django.db import models
-from django.utils import tree
 from ninjas.models import Team, JouninNinja
-from skills.models import Parchment
+from skills.models import Skill
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 # Create your models here.
 class Client(models.Model):
@@ -26,9 +26,20 @@ class Inventory(models.Model):
     shurikens = models.IntegerField(default=0)
     explosive_seals = models.IntegerField(default=0)
 
-    #inventory parchment relationship
-    parchment = models.OneToOneField(Parchment, on_delete=models.CASCADE, default=None, null=True)
 
+class Parchment(models.Model):
+    #parchment basic attribute
+    skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
+    date = models.DateField()
+
+    #Parchment Inventory relationship
+    inventory = models.ForeignKey(Inventory, on_delete=models.CASCADE, blank=True, null=True)
+
+    def get_absolute_url(self):
+        return reverse('missions:parchment_detail', kwargs={'pk': self.pk})
+
+    def __str__(self):
+        return self.skill.name
 
 
 class Mission(models.Model):

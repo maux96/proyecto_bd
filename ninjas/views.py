@@ -2,9 +2,13 @@
 from django.http.request import HttpRequest
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import CreateTeamForm, AssignMissionForm, DeliverMissionResultForm
 from django.views import generic
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
-from .models import Ninja, Team
+from .models import Ninja, Team, JouninNinja
+from missions.models import Inventory, MissionResult
 
 # Create your views here.
 
@@ -89,16 +93,28 @@ class ShowTeamMissionsView(generic.ListView):
         return team_object.mission_set.all()
 
 
+class CreateTeamView(generic.FormView):
+    template_name = 'ninjas/create_ninja_team.html'
+    form_class = CreateTeamForm
 
+    def form_valid(self, form):
+        
+       # for n in form.cleaned_data['ninjas']:
+       #     if n.is_medic:
+        new_team = Team.objects.create(name=form.cleaned_data['team_name'])
+        new_team.save()
+        for ninja in form.cleaned_data['ninjas']:
+            ninja.team = new_team
+            ninja.save()
+        #break
 
+        return HttpResponseRedirect(reverse('ninjas:all'))
 
 #Querys :)
 class ShowNinjasQuerys(generic.ListView):
     template_name = "ninjas/show_ninja_query.html"
     context_object_name = "ninja_query"
     paginate_by = 5
-
-
 class ShowAllNinjasQuery(ShowNinjasQuerys):
     def get_queryset(self):
         return Ninja.objects.all()
@@ -123,3 +139,74 @@ def filter(request : HttpRequest):
     value = request.POST['criteria']
     arg = request.POST['serach']
     return redirect(value+"/"+arg)
+
+
+class DeliverMissionResultView(generic.FormView):
+    template_name = 'ninjas/deliver_mission_result.html'
+    form_class = DeliverMissionResultForm
+
+    def form_valid(self, form):
+        jounin = JouninNinja.objects.filter(pk=self.request.user.ninja.pk)[0]
+        mission = jounin.team.mission_set.all()[jounin.team.mission_set.count()-1]
+        team = jounin.team
+
+        success = form.cleaned_data['success']
+        if success:
+            result = 'Success'
+        else:
+            result = 'Failure'   
+
+        MissionResult.objects.create(result=result,
+        begin_date=form.cleaned_data['begin_date'],
+        end_date=form.cleaned_data['end_date'],
+        mission=mission)
+
+        team.in_mission = False
+        team.save()
+        jounin.leading_team = False
+        jounin.team = None
+        jounin.save()
+
+
+        return HttpResponseRedirect(reverse('ninjas:show_all_ninjas'))
+
+
+
+class AssignMissionView(generic.FormView):
+    template_name = 'ninjas/assign_mission.html'
+    form_class = AssignMissionForm
+
+    def form_valid(self, form):
+        mission = form.cleaned_data['mission'] 
+        team = form.cleaned_data['team']
+        leader = form.cleaned_data['leader']
+
+        kunais = form.cleaned_data['kunais']
+        shurikens = form.cleaned_data['shurikens']
+        explosive_seals = form.cleaned_data['explosive_seals']
+        parchments = form.cleaned_data['parchments']
+        
+        inventory = Inventory.objects.create(kunais=kunais,
+        shurikens=shurikens,explosive_seals=explosive_seals)
+        inventory.save()
+
+        for parchment in parchments:
+            parchment.inventory = inventory
+            parchment.save()
+
+        team.in_mission = True
+        team.save()
+
+        leader.leading_team = True
+        leader.team = team
+        leader.save()
+
+        mission.team = team
+        mission.leader = leader
+        mission.available = False
+        mission.inventory = inventory
+        mission.save()
+
+
+        return HttpResponseRedirect(reverse('ninjas:show_all_ninjas'))
+

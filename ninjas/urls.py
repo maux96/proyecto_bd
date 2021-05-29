@@ -14,6 +14,10 @@ urlpatterns = [
     path('teamMission/<int:pk>/', views.ShowTeamMissionView, name='show_team_mission'),
     path('teamMissions/<int:pk>/', views.ShowTeamMissionsView.as_view(), name='show_team_missions'),
 
+    path('createTeam/', views.CreateTeamView.as_view(), name='create_team'),
+    path('assignMission/', views.AssignMissionView.as_view(), name='assign_mission'),
+    path('deliverMissionResult/', views.DeliverMissionResultView.as_view(), name='deliver_mission_result'),
+    
     path('all/', views.ShowAllNinjasQuery.as_view(), name='all'),
     path('teamquery/<int:pk>', views.ShowNinjaTeamQuery.as_view(), name='teamquery'),
     path('gender/<str:gender>', views.ShowNinjasByGender.as_view(), name='gender'),

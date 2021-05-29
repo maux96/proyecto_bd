@@ -32,6 +32,8 @@ class Ninja(models.Model):
     birth_date = models.DateTimeField('birth')
     gender = models.CharField(max_length=10)
 
+    is_medic = models.BooleanField(default=False)
+
     #ninja skill relationship
     skills = models.ManyToManyField(Skill, blank=True)
 
@@ -90,6 +92,8 @@ class ChuninNinja(Ninja):
 class JouninNinja(Ninja):
     exam_date = models.DateField()
     classification = models.IntegerField(default=5, validators=[MinValueValidator(0),MaxValueValidator(10)])
+    leading_team = models.BooleanField(default=False, blank=True)
+    
     def ninja_info(self):
         sol=[("Calificacion",self.calificlassificationcation),("Fecha del Examen",self.exam_date)]
         return sol

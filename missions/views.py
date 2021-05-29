@@ -5,8 +5,8 @@ from django.urls import reverse
 from django.shortcuts import render,redirect
 from django.views import generic
 
-from .models import Client, Mission
-from .mission_form import CreateMissionForm
+from .models import Client, Mission, Parchment
+from .mission_form import CreateMissionForm, CreateParchmentForm
 
 # Create your views here.
 class ShowAllClientsView(generic.ListView):
@@ -31,6 +31,16 @@ class MissionDetailView(generic.DetailView):
 class ClientProfileView(generic.DetailView):
     model = Client
     template_name = "missions/profile.html"
+
+class CreateParchmentView(generic.edit.CreateView):
+    form_class = CreateParchmentForm
+    template_name = 'missions/create_parchment.html'
+
+
+class ParchmentDetailView(generic.DetailView):
+    model = Parchment
+    template_name = 'missions/parchment_detail.html'
+
 
 
 def create_mission(request: HttpRequest):
