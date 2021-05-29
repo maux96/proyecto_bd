@@ -12,6 +12,8 @@ class ShowAllSkillsView(generic.ListView):
     template_name = 'skills/show_all_skills.html'
     context_object_name = 'all_skills_list'
 
+    paginate_by = 5
+    
     def get_queryset(self):
         return Skill.objects.all()
 

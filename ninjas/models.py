@@ -48,8 +48,19 @@ class Ninja(models.Model):
         return self.skills.all()
     def ninja_invocations(self):
         return self.invocations.all()
-    def ninja_class(self):
-        return type(self).__name__
+    
+    def class_name(self):
+        return "Generic Ninja"
+        
+    def specific_type(self):
+        types = [GeninNinja,ChuninNinja,JouninNinja,HokageNinja]
+        specific_ninja = self
+        for type in types:
+            try: 
+                specific_ninja=type.objects.get(pk=self.pk)
+                break
+            except: pass
+        return specific_ninja
 
     def __str__(self):
         return self.name
@@ -62,7 +73,10 @@ class GeninNinja(Ninja):
     def ninja_info(self):
         sol=[("Evaluacion",self.assessment),("Fecha de Graduacion",self.graduation_date)]
         return sol
-
+    
+    def class_name(self):
+        return "Genin"
+        
 class ChuninNinja(Ninja):
     exam_date = models.DateField()
     classification = models.IntegerField(default=5, validators=[MinValueValidator(0),MaxValueValidator(10)])
@@ -70,12 +84,19 @@ class ChuninNinja(Ninja):
         sol=[("Calificacion",self.classification),("Fecha del Examen",self.exam_date)]
         return sol
 
+    def class_name(self):
+        return "Chunin"
+    
 class JouninNinja(Ninja):
     exam_date = models.DateField()
     classification = models.IntegerField(default=5, validators=[MinValueValidator(0),MaxValueValidator(10)])
     def ninja_info(self):
         sol=[("Calificacion",self.calificlassificationcation),("Fecha del Examen",self.exam_date)]
         return sol
+    
+    def class_name(self):
+        return "Jounin"
+    
     """ def guide_of(self):
         return Team.objects.filter( guide_id = self.pk ) """
 
@@ -84,3 +105,8 @@ class HokageNinja(Ninja):
 
     def __str__(self):
         return self.name + ",the " + str(self.hokage_number) + " Hokage of Konoha" 
+
+    
+    def class_name(self):
+        return "Hokage"
+    

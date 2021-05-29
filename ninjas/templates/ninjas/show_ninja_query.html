@@ -1,37 +1,14 @@
-{%extends 'base.html'%}
+{%extends 'base_list.html'%}
 
 
 {% block title %} Ninjas: {% endblock %}
 
 
-{% block header %} 
-    <div class="page-header">
-        <h1 class="display-4"> Ninjas! {{title}} </h1>
-        <hr>
-
-        <div class="pagination">
-            <span class="step-links">
-                <div class="btn-group">
-                {% if page_obj.has_previous %}
-            
-                    <a class="btn btn-outline-primary" href="?page={{ page_obj.previous_page_number }}">previous</a>
-                {% else %}
-                    <a class="btn btn-outline-primary disabled" >previous</a>
-                {% endif %}
-                <span class="current btn btn-primary disabled">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-                {% if page_obj.has_next %}
-                    <a class="btn btn-outline-primary" href="?page={{ page_obj.next_page_number }}">next</a>
-                {% else %}
-                    <a class="btn btn-outline-primary disabled" >next</a>
-                {% endif %}
-                </div>
-            </span>
-        </div>
-
+{% block listheader %} 
+    <div>
+        <h1 class="display-4"> Ninjas! </h1>
+        <p class="lead"> All the ninjas.</p>        
     </div>
-    <p class="lead"> All the ninjas.</p>
 {% endblock %}
 
 
@@ -73,7 +50,7 @@
                 <tr>
                     <td> {{ninja.id}}</td> 
                     <td><a href="{% url 'ninjas:profile' ninja.pk %}"> {{ninja.name}}</a></td> <!-- Aqui deberia haber un link a el perfil de el ninja... -->
-                    <td>{{ninja.ninja_class}} </td> <!-- Aqui deberia ir la clase asociada al ninja... -->
+                    <td>{{ninja.specific_type.class_name}} </td> <!-- Aqui deberia ir la clase asociada al ninja... -->
                 </tr>
             {% endfor %}
         </table>

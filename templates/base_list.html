@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div class="page-header">
+    {% block listheader%}
+
+    {% endblock %}
+
+
+    <div class="pagination">
+        <span class="step-links">
+            <div class="btn-group">
+            {% if page_obj.has_previous %}
+        
+                <a class="btn btn-outline-primary" href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% else %}
+                <a class="btn btn-outline-primary disabled" >previous</a>
+            {% endif %}
+            <span class="current btn btn-primary disabled">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-primary" href="?page={{ page_obj.next_page_number }}">next</a>
+            {% else %}
+                <a class="btn btn-outline-primary disabled" >next</a>
+            {% endif %}
+            </div>
+        </span>
+    </div>
+
+</div>
+{% endblock %}

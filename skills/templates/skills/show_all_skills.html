@@ -1,32 +1,31 @@
-{%extends 'base.html'%}
+{%extends 'base_list.html'%}
 
 
 {% block title %} Skills {% endblock %}
 
-
-{% block header %} 
-    <div class="page-header">
+{% block listheader %} 
+    <div>
         <h1 class="display-4"> Skills! </h1>
-        <hr>
+        <p class="lead"> All the skills.</p>        
     </div>
-    <p class="lead"> All the skills.</p>
 {% endblock %}
-
 
 
 {%  block content %}
 {% if all_skills_list %}
     <table class="table">
         <tr class="bg-secondary text-light ">
-            <th>ID</th><th>Name</th><th>Element</th>
+            <th>ID</th><th>Name</th> <th>Type</th><th>Element</th>
         </tr>
         {% for skill in all_skills_list %}
             <tr>
                 <td> {{skill.id}}</td> 
-                {% if skill.id %}
+                {% if skill.specific_type.class_name == "Attack" %}
                     <td><a href="{% url 'skills:attack_skill_detail' skill.pk %}"> {{skill.name}}</a></td>
+                    <td> {{skill.specific_type.class_name}} </td>
                 {% else %}
                     <td><a href="{% url 'skills:heal_skill_detail' skill.pk %}"> {{skill.name}}</a></td>
+                    <td> {{skill.specific_type.class_name}} </td>
                 {% endif %}
                 <td>{{skill.element}} </td>
             </tr>

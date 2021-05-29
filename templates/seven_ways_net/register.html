@@ -47,7 +47,7 @@
 
         
             <label for="name" >Name:</label>
-            <input class="form-control" type="text" name="name" placeholder="Name">
+            <input class="form-control" type="text" name="name" placeholder="Name" required>
         
 
         <div id="registertype" > 
@@ -69,26 +69,26 @@
                     </datalist>
                 
                     <hr>
-                    <div class="myflex1">
+                    <div class="myflex1" id="ninjaselector">
                         <div>
                             <label  >Genin</label>
-                            <input type="radio" class="form-control" name="ninjaType" value="genin"  required>
+                            <input type="radio" class="form-control" name="ninjaType" value="genin"  >
                         </div>
                         <div>
                             <label >Chunin</label>
-                            <input type="radio" class="form-control" name="ninjaType" value="chunin"  required>
+                            <input type="radio" class="form-control" name="ninjaType" value="chunin" >
                         </div>
                         <div>
                             <label >Jounin</label>
-                            <input type="radio" class="form-control" name="ninjaType" value="jounin"   required>
+                            <input type="radio" class="form-control" name="ninjaType" value="jounin" >
                         </div>
                     </div>
                     <hr>
                     <label for="graduationdate" >Graduation Date:</label>
-                    <input  class="form-control" type="date" name="graduationdate" placeholder="Graduation Date" required>
+                    <input  class="form-control" type="date" name="graduationdate" placeholder="Graduation Date">
                     
                     <label for="calification" >Calification:</label>
-                    <input  class="form-control" type="number" max="5" min="2" name="calification" placeholder="Calification" required>
+                    <input  class="form-control" type="number" max="5" min="2" name="calification" placeholder="Calification" >
                 
             </div>
 
@@ -120,9 +120,26 @@
         {
             document.getElementById("ninjar").hidden=true
             document.getElementById("clientr").hidden=false
+
+            let list = document.getElementsByName("ninjaType") 
+            list.forEach(element => {
+                element.required = false
+            });
+ 
+            document.getElementsByName("graduationdate")[0].required = false
+            document.getElementsByName("calification")[0].required = false 
+
         }else{
             document.getElementById("clientr").hidden=true
             document.getElementById("ninjar").hidden=false
+            
+            let list = document.getElementsByName("ninjaType") 
+            list.forEach(element => {
+                element.required = true
+            });
+            document.getElementsByName("graduationdate")[0].required = true 
+            document.getElementsByName("calification")[0].required = true 
+            
         }
     }
 </script>

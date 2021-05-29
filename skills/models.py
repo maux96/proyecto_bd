@@ -12,6 +12,19 @@ class Skill(models.Model):
     def __str__(self):
         return self.name
 
+    def class_name(self):
+        return "Generic Skill"
+        
+    def specific_type(self):
+        types = [AttackSkill,HealSkill]
+        specific_skill = self
+        for type in types:
+            try: 
+                specific_skill=type.objects.get(pk=self.pk)
+                break
+            except: pass
+        return specific_skill
+        
 
 class AttackSkill(Skill):
     #attackSkill basic attribute
@@ -20,6 +33,9 @@ class AttackSkill(Skill):
     def get_absolute_url(self):
         return reverse('skills:attack_skill_detail', kwargs={'pk': self.pk})
 
+    def class_name(self):
+        return "Attack"
+        
 
 class HealSkill(Skill):
     #healSkill basic attribute
@@ -28,7 +44,9 @@ class HealSkill(Skill):
     def get_absolute_url(self):
         return reverse('skills:heal_skill_detail', kwargs={'pk': self.pk})
 
-
+    def class_name(self):
+        return "Heal"
+        
 class Parchment(models.Model):
     #parchment basic attribute
     skill = models.ForeignKey(Skill, on_delete=models.CASCADE)

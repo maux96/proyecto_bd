@@ -12,7 +12,7 @@
             <a  class="btn btn-primary" href="{% url 'skills:create_attack_skill' %}">Create AttackSkill </a>
             <a class="btn btn-primary"  href="{% url 'skills:create_heal_skill' %}">Create HealSkill </a>
             <a class="btn btn-primary" href="{% url 'skills:learn_skill' %}">Learn Skill</a>
-    
+
             <a class="btn btn-primary" href="{% url 'invocations:create_invocation' %}">Create Invocation </a>
             <a class="btn btn-primary" href="{% url 'invocations:learn_invocation' %}">Learn Invocation </a>
         </div>
@@ -66,7 +66,7 @@
                 <td>User: </td> <td>{{ ninja.user }}</td>
             </tr>
             <tr>
-                <td> Class: </td> <td>{{ninja.ninja_class}}</td>
+                <td> Class: </td> <td>{{ ninja.specific_type.class_name }}</td>
             </tr>
             <tr>
                 <td> Gender: </td> <td>{{ninja.gender}}</td>

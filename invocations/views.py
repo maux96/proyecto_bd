@@ -10,6 +10,7 @@ class ShowAllInvocationsView(generic.ListView):
     template_name = 'invocations/show_all_invocations.html'
     context_object_name = 'all_invocations_list'
 
+    paginate_by = 5
     def get_queryset(self):
         return Invocation.objects.all()
 

@@ -24,6 +24,8 @@ class ShowAllTeamsView(generic.ListView):
     template_name='ninjas/show_all_teams.html'
     context_object_name='all_teams_list'
 
+    paginate_by=5
+    
     def get_queryset(self):
         return Team.objects.all()
 

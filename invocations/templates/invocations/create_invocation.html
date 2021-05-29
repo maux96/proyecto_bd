@@ -4,6 +4,11 @@
 <form action='.' method='POST'> 
 {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Create" />
+    <div class="row">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            <button class="form-control btn btn-primary" type="submit">Create</button>
+        </div>
+    </div>
 </form>
 {% endblock %}
