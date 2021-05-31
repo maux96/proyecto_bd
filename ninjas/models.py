@@ -18,7 +18,7 @@ class Team(models.Model):
         return len(self.members())
 
     def missions(self):
-        return apps.get_model('missions','Mission').objects.filter(team_id=self.pk) #para que no se haga una importacion circular.
+        return apps.get_model('missions','Mission').objects.filter(team_id=self.pk) 
 
     def __str__(self):
         return self.name
@@ -27,10 +27,12 @@ class Team(models.Model):
 class Ninja(models.Model):
     #ninja basic attribute
     name = models.CharField(max_length=200)
+    nick_name = models.CharField(max_length=50,null=True,blank=True)
     age = models.IntegerField()
     clan = models.CharField(max_length=200)
     birth_date = models.DateTimeField('birth')
     gender = models.CharField(max_length=10)
+    max_chakra = models.IntegerField(default=100,null=True,blank=True)
 
     is_medic = models.BooleanField(default=False)
 
@@ -73,7 +75,7 @@ class GeninNinja(Ninja):
     graduation_date = models.DateField()
     assessment = models.IntegerField(default=5, validators=[MinValueValidator(0),MaxValueValidator(10)])
     def ninja_info(self):
-        sol=[("Evaluacion",self.assessment),("Fecha de Graduacion",self.graduation_date)]
+        sol=[("Assessment",self.assessment),("Graduation Date",self.graduation_date)]
         return sol
     
     def class_name(self):
@@ -81,9 +83,9 @@ class GeninNinja(Ninja):
         
 class ChuninNinja(Ninja):
     exam_date = models.DateField()
-    classification = models.IntegerField(default=5, validators=[MinValueValidator(0),MaxValueValidator(10)])
+    calification = models.IntegerField(default=5, validators=[MinValueValidator(0),MaxValueValidator(10)])
     def ninja_info(self):
-        sol=[("Calificacion",self.classification),("Fecha del Examen",self.exam_date)]
+        sol=[("Calification",self.calification),("Test Date",self.exam_date)]
         return sol
 
     def class_name(self):
@@ -91,11 +93,11 @@ class ChuninNinja(Ninja):
     
 class JouninNinja(Ninja):
     exam_date = models.DateField()
-    classification = models.IntegerField(default=5, validators=[MinValueValidator(0),MaxValueValidator(10)])
+    calification = models.IntegerField(default=5, validators=[MinValueValidator(0),MaxValueValidator(10)])
     leading_team = models.BooleanField(default=False, blank=True)
     
     def ninja_info(self):
-        sol=[("Calificacion",self.calificlassificationcation),("Fecha del Examen",self.exam_date)]
+        sol=[("Calification",self.calification),("Test Date",self.exam_date)]
         return sol
     
     def class_name(self):
@@ -106,6 +108,10 @@ class JouninNinja(Ninja):
 
 class HokageNinja(Ninja):
     hokage_number = models.IntegerField()
+
+    def ninja_info(self):
+        sol=[("Hokage Number",self.hokage_number)]
+        return sol
 
     def __str__(self):
         return self.name + ",the " + str(self.hokage_number) + " Hokage of Konoha" 

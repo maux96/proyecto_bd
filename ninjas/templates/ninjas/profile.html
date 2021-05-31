@@ -81,8 +81,19 @@
                 <td>User: </td> <td>{{ ninja.user }}</td>
             </tr>
             <tr>
+                <td>Nick Name: </td> <td>{{ ninja.nick_name }}</td>
+            </tr>
+            <tr>
                 <td> Class: </td> <td>{{ ninja.specific_type.class_name }}</td>
             </tr>
+            
+            {% for info_name,info_value in ninja.specific_type.ninja_info%} 
+                <tr>
+                    <td> {{info_name}}:</td>
+                    <td> {{info_value}} </td>
+                </tr>
+            {%endfor%}
+            
             <tr>
                 <td> Gender: </td> <td>{{ninja.gender}}</td>
             </tr>
@@ -92,14 +103,12 @@
             <tr>
                 <td> Birth Date: </td> <td>{{ninja.birth_date}} ({{ninja.age}} años) </td>
             </tr>
-            <!-- info de ninja -->
-            {% for info_name,info_value in ninja.ninja_info%} 
             <tr>
-                <td> {{info_name}}</td>
-                <td> {{info_value}} </td>
+                <td>Is Medic: </td> <td>{{ ninja.is_medic }}</td>
             </tr>
-            {%endfor%}
-            
+            <tr>
+                <td>Max Chakra: </td> <td>{{ ninja.max_chakra }}</td>
+            </tr>
             <!-- info equipo -->
             {% if ninja.team %}
                 <tr>
@@ -123,7 +132,7 @@
                     <td></td>
                 </tr>
             {% endif %}
-           <!-- aqui estaria si es lider de algun equipo (Buscar en el primer proyecto empezado) -->
+          
            
         </table>
     </div>

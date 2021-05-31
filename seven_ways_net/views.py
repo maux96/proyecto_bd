@@ -39,10 +39,13 @@ def endRegister(request :HttpRequest):
     user = User(username = username)
     user.set_password(password)
 
+    print("++++++++++++++++++++++>",request.POST)
     userType=request.POST.get("userType")
     name =  request.POST.get("name")
     if (userType == "ninja"):
         clan=request.POST.get("clan")
+        nick_name =  request.POST.get("nick_name")
+        max_chakra =  request.POST.get("max_chakra")
         birth_date =  request.POST.get("birthdate")
         birth_date = date.fromisoformat(birth_date)
         gender =  request.POST.get("gender")
@@ -52,11 +55,11 @@ def endRegister(request :HttpRequest):
         
         user.save()
         if ninjaType == "genin":            
-            GeninNinja(name=name, age = calc_age(birth_date),clan=clan, birth_date = birth_date,gender = gender, user=user,graduation_date = graduation_date,assessment = calification).save()    
+            GeninNinja(name=name, age = calc_age(birth_date),clan=clan,max_chakra=max_chakra, nick_name=nick_name, birth_date = birth_date,gender = gender, user=user,graduation_date = graduation_date,assessment = calification).save()    
         elif ninjaType == "chunin":
-            ChuninNinja(name=name, age = calc_age(birth_date),clan=clan, birth_date = birth_date,gender = gender, user=user,exam_date = graduation_date,classification = calification).save()    
+            ChuninNinja(name=name, age = calc_age(birth_date),clan=clan,max_chakra=max_chakra, nick_name=nick_name, birth_date = birth_date,gender = gender, user=user,exam_date = graduation_date,calification = calification).save()    
         elif ninjaType == "jounin":
-            JouninNinja(name=name, age = calc_age(birth_date),clan=clan, birth_date = birth_date,gender = gender, user=user,exam_date = graduation_date,classification = calification).save()    
+            JouninNinja(name=name, age = calc_age(birth_date),clan=clan,max_chakra=max_chakra, nick_name=nick_name, birth_date = birth_date,gender = gender, user=user,exam_date = graduation_date,calification = calification).save()    
     else:
         country=request.POST.get("country")
         user.save()
@@ -69,7 +72,7 @@ def endRegister(request :HttpRequest):
 def femalePercent():
     total_famale = len(Ninja.objects.filter(gender="F"))
     total = len(Ninja.objects.all())
-    return (total_famale/total )*100
+    return (total_famale/total )*100 if total > 0 else 0
 def Best5RewardMissions():
     return Mission.objects.order_by("-reward")[:5]
 def NinjaInvocationPair():          #falta poner que solo los que tengan mas de 6 misiones con rango S.

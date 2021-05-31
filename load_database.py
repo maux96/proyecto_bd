@@ -1,3 +1,5 @@
+#OBSOLETO!!
+
 from ninjas.models import ChuninNinja, JouninNinja, Team, User
 from missions.models import Mission,MissionResult,Client
 from datetime import datetime,date
@@ -5,6 +7,7 @@ from datetime import datetime,date
 from os import remove,system
 
 def Execute():
+    print("ESTE ARCHIVO YA ESTA OBSOLETO!!!")
     desition=input("Seguro que quieres eliminar la base de datos que con tanto amor llenaste y retornarla a los valores por defecto??  (y/N)  ")
     if desition != "y":
         print("Cancelado.")
