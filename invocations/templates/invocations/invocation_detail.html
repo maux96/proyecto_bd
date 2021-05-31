@@ -1,6 +1,37 @@
 {% extends 'base.html' %}
 
+{% block header %}
+    <div class="header-page">
+        <h1 class="display-5">{{invocation.name}}</h1>
+    </div>
+{% endblock %}
+     
 {% block content %}
-<p>{{invocation.name}}</p>
-<p>{{invocation.invocation_type}}</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <h5>Resume</h5>
+        <table class="table">
+            <tr> 
+                <td>Invocation Type: </td> <td> {{invocation.invocation_type}} </td>
+            </tr>
+        </table>
+    </div>
+    <dov class="col-md-6">
+        <h5>Contract by:</h5>
+        <table class="table">
+            <tr>
+                <th>Id</th> <th>Clan</th> <th> Name</th> 
+            </tr>
+            {% for ninja in invocation.contract_by %}
+            <tr> 
+                <td> {{ ninja.pk }}</td>
+                <td> {{ninja.clan}} </td>
+                <td> <a href="{% url 'ninjas:profile' ninja.pk %}"> {{ninja.name}} </a> </td>
+                
+            </tr>
+            {% endfor %}
+        </table>
+    </dov>
+</div>
 {% endblock %}

@@ -39,7 +39,6 @@ def endRegister(request :HttpRequest):
     user = User(username = username)
     user.set_password(password)
 
-    print("++++++++++++++++++++++>",request.POST)
     userType=request.POST.get("userType")
     name =  request.POST.get("name")
     if (userType == "ninja"):
@@ -83,10 +82,10 @@ def NinjaInvocationPair():          #falta poner que solo los que tengan mas de 
             sol.append((n,i))
     return sol
 def ShowJouninsWith3C():
-    jounins = JouninNinja.objects.filter(mission__rank__lte="C")
+    jounins = JouninNinja.objects.all()
     sol = set()
     for j in jounins:
-        c=j.mission_set.count()
+        c =j.mission_set.filter(rank__lte="C").union(j.mission_set.filter(rank="S")).count()
         if c >= 3: 
             sol.add((j,c))
     return list(sol)

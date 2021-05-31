@@ -31,7 +31,7 @@
                 <tr>
                     <td> {{ninja.id}}</td> 
                     <td><a href="{% url 'ninjas:profile' ninja.pk %}"> {{ninja.name}}</a></td> 
-                    <td>{{ninja.ninja_class}} </td> <!-- Aqui deberia ir la clase asociada al ninja... -->
+                    <td>{{ninja.specific_type.class_name}} </td> <!-- Aqui deberia ir la clase asociada al ninja... -->
                 </tr>
             {% endfor %}
         </table>

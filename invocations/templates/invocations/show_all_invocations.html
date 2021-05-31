@@ -22,7 +22,7 @@
         {% for invocation in all_invocations_list %}
             <tr>
                 <td> {{invocation.id}}</td> 
-                <td> {{invocation.name}}</td>
+                <td>  <a href="{%url 'invocations:invocation_detail' invocation.pk %}">{{invocation.name}} </a></td>
                 <td> {{invocation.invocation_type}} </td>
             </tr>
         {% endfor %}

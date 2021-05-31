@@ -21,6 +21,7 @@ class ShowAllNinjasView(generic.ListView):
     template_name = 'ninjas/show_all_ninjas.html'
     context_object_name = 'all_ninjas_list'
 
+    paginate_by=6
     def get_queryset(self):
         return Ninja.objects.all()
 
