@@ -1,12 +1,26 @@
+from skills.models import Skill
 from django.shortcuts import redirect, render
 from django.http import HttpRequest
 from ninjas.models import ChuninNinja, GeninNinja, JouninNinja, Ninja,User
+from missions.models import Mission
 from missions.models import Client
 from datetime import date,datetime
 
 #pagina principal
 def index(request):
-    return render(request,'seven_ways_net/index.html',{})
+    best5Reward = Best5RewardMissions()
+    ninjaInvocationPair = NinjaInvocationPair()
+    jounin3C = ShowJouninsWith3C()
+    medicCapitans = MedicCapitans()
+    exposedSkills = ExposedSkills()
+    return render(request,'seven_ways_net/index.html',{ 
+                                                        "femalePercent":femalePercent(),
+                                                        "best5Reward" : best5Reward,
+                                                        "ninjaInvocationPair":ninjaInvocationPair,
+                                                        "jounin3C":jounin3C,
+                                                        "medicCapitans":medicCapitans,
+                                                        "exposedSkills":exposedSkills
+                                                        })
 
 
 
@@ -49,6 +63,42 @@ def endRegister(request :HttpRequest):
         Client(name=name,user=user,country=country).save()
     
     return redirect("/auth/login")
+
+#---------
+
+def femalePercent():
+    total_famale = len(Ninja.objects.filter(gender="F"))
+    total = len(Ninja.objects.all())
+    return (total_famale/total )*100
+def Best5RewardMissions():
+    return Mission.objects.order_by("-reward")[:5]
+def NinjaInvocationPair():          #falta poner que solo los que tengan mas de 6 misiones con rango S.
+    ninjas = Ninja.objects.all()
+    sol=[]
+    for n in ninjas:
+        for i in n.invocations.all():
+            sol.append((n,i))
+    return sol
+def ShowJouninsWith3C():
+    jounins = JouninNinja.objects.filter(mission__rank__lte="C")
+    sol = set()
+    for j in jounins:
+        c=j.mission_set.count()
+        if c >= 3: 
+            sol.add((j,c))
+    return list(sol)
+
+def MedicCapitans():
+    jounins = JouninNinja.objects.filter(is_medic=True)
+    sol = set()
+    for j in jounins:
+        c = j.mission_set.count()
+        if c != 0:
+            sol.add((j,c))
+    return list(sol)
+def ExposedSkills():
+    skills=Skill.objects.filter(belong_to_the_village=True).exclude(ninja__team__mission__client__country="Fire").exclude(ninja__team__mission__isnull=True)
+    return skills
 
 
 #---------- 

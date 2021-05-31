@@ -12,6 +12,100 @@
 {% endblock %}
 
 {% block content %}
-    <h4>Random info:</h4>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima exercitationem quaerat cupiditate nam quisquam. Commodi velit earum temporibus, quo aliquid facere dolorum natus ducimus, fugit magni dolorem expedita totam neque molestias assumenda maxime reiciendis eveniet! Ducimus excepturi reprehenderit ex incidunt sed. Explicabo totam, repellendus cumque adipisci omnis amet quis libero in ratione dolore ipsam temporibus dicta consequuntur sequi delectus inventore distinctio asperiores eaque id saepe quod aspernatur rem? Saepe, cupiditate?
+    <h4>Interesting Info:</h4>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            The {{femalePercent}}% of the ninjas are females. 
+            <p></p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Best Missions Reward</h5>
+            <table class="table">
+                <tr><th>Rank</th><th>Name</th><th>Reward</th><th>Client Name</th></tr>
+                {% for mission in best5Reward %}
+                    <tr>
+                        <td> {{mission.rank}}</td> 
+                        <td><a href="{% url 'missions:mission_details' mission.pk%}"> {{mission.name}}</a></td>
+                        <th>$ {{mission.reward}}</th>
+                        <td><a href="{% url 'missions:profile' mission.client.pk%}"> {{mission.client.name}}</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Jounins with 3 or more missions of C or higher rank.</h5>
+            
+            <table class="table">
+                <tr><th>Name</th><th>Total</th>
+                {% for ninja,c in jounin3C %}
+                    <tr>
+                        <td> <a href="{% url 'ninjas:profile' ninja.pk %}"> {{ninja.name}}</a></td> 
+                       
+                        <td>{{c}}</td>
+                    </tr>
+                {% endfor %}
+                </table>
+        </div>
+        <div class="col-md-6">
+            <h5>Ninja-Invocation Team.</h5>
+            <table class="table">
+                <tr><th>Name</th><th>Clan</th><th>Invocation</th>
+                {% for ninja,inv in ninjaInvocationPair %}
+                    <tr>
+                        <td> <a href="{% url 'ninjas:profile' ninja.pk%}"> {{ninja}} </a></td> 
+                        <td> <a href="{% url 'ninjas:clan' ninja.clan%}"> {{ninja.clan}} </a></td>
+                        <td>{{inv.name}}</td>
+                        
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+       
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Medic-Capitan-Jounin Ninjas.</h5>
+
+            <table class="table">
+                <tr><th>Name</th><th>Total</th>
+                {% for ninja,c in medicCapitans %}
+                    <tr>
+                        <td> <a href="{% url 'ninjas:profile' ninja.pk %}"> {{ninja.name}}</a></td> 
+                       
+                        <td>{{c}}</td>
+                    </tr>
+                {% endfor %}
+                </table>
+        </div>
+        <div class="col-md-6">
+            <h5>Exposed Skills.</h5>
+
+            <table class="table">
+                <tr><th>Name</th>
+                {% for skill in exposedSkills %}
+                    <tr>
+                        
+                    {% if skill.specific_type.class_name == "Attack" %}
+                        <td><a href="{% url 'skills:attack_skill_detail' skill.pk %}"> {{skill.name}}</a></td>
+                        <td> {{skill.specific_type.class_name}} </td>
+                    {% else %}
+                        <td><a href="{% url 'skills:heal_skill_detail' skill.pk %}"> {{skill.name}}</a></td>
+                        <td> {{skill.specific_type.class_name}} </td>
+                    {% endif %}
+                    </tr>
+                {% endfor %}
+                </table>
+        </div>
+    </div>
+
+
 {% endblock %}

@@ -1,4 +1,4 @@
-#import ninjas
+from django.db.models import Q
 from django.http.request import HttpRequest
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from .models import Ninja, Team, JouninNinja
-from missions.models import Inventory, MissionResult
+from missions.models import Inventory, Mission, MissionResult
 
 # Create your views here.
 
@@ -114,7 +114,7 @@ class CreateTeamView(generic.FormView):
 class ShowNinjasQuerys(generic.ListView):
     template_name = "ninjas/show_ninja_query.html"
     context_object_name = "ninja_query"
-    paginate_by = 5
+    paginate_by = 5        
 class ShowAllNinjasQuery(ShowNinjasQuerys):
     def get_queryset(self):
         return Ninja.objects.all()
@@ -122,6 +122,10 @@ class ShowNinjaTeamQuery(ShowNinjasQuerys):
     def get_queryset(self):
         team_pk =self.kwargs['team']
         return Ninja.objects.filter(team_pk = team_pk)
+class ShowNinjaNameQuery(ShowNinjasQuerys):
+    def get_queryset(self):
+        name =self.kwargs['name']
+        return Ninja.objects.filter(name__contains = name)
 class ShowNinjasByGender(ShowNinjasQuerys):
     def get_queryset(self):
         gender = self.kwargs['gender']
@@ -129,12 +133,12 @@ class ShowNinjasByGender(ShowNinjasQuerys):
 class ShowNinjasByClan(ShowNinjasQuerys):
     def get_queryset(self):
         clan = self.kwargs['clan']
-        return Ninja.objects.filter(clan = clan)
+        return Ninja.objects.filter(clan__contains = clan)
 class ShowNinjasByAge(ShowNinjasQuerys):
     def get_queryset(self):
         age = self.kwargs['age']
         return Ninja.objects.filter(age = age)
-        
+    
 def filter(request : HttpRequest):
     value = request.POST['criteria']
     arg = request.POST['serach']

@@ -23,5 +23,6 @@ urlpatterns = [
     path('gender/<str:gender>', views.ShowNinjasByGender.as_view(), name='gender'),
     path('clan/<str:clan>', views.ShowNinjasByClan.as_view(), name='clan'),
     path('age/<int:age>', views.ShowNinjasByAge.as_view(), name='age'),
-    path('filter',views.filter,name='filter')
+    path('name/<str:name>',views.ShowNinjaNameQuery.as_view(),name='name'),
+    path('filter',views.filter,name='filter'),
 ]
